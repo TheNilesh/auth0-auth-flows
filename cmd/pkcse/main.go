@@ -212,16 +212,6 @@ func loadTokenFromFile(filename string) (TokenData, error) {
 }
 
 func refreshToken(config *oauth2.Config, refreshToken string) (TokenData, error) {
-
-	// tokenURL := fmt.Sprintf("https://%s/oauth/token", domain)
-
-	// config := &oauth2.Config{
-	// 	ClientID: clientID,
-	// 	Endpoint: oauth2.Endpoint{
-	// 		TokenURL: tokenURL,
-	// 	},
-	// }
-
 	token := &oauth2.Token{
 		RefreshToken: refreshToken,
 	}
