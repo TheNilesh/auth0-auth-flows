@@ -11,8 +11,8 @@ $ cat .env
 AUTH0_DOMAIN=<auth0-domain>
 AUTH0_CLIENT_ID=<client-id>
 AUTH0_REDIRECT_URL=http://localhost:3000/callback
-
-CLIENT_SECRET=c2-SxydW-EzxdCKrxagNmcxnMiZRN-L3F6zeeQsNWu2dbJ0k1CDXv94eQQK7mLZF
+# required for authorization flow
+CLIENT_SECRET=<client-secret>
 
 $ go run ./cmd/device-auth/main.go login    # starts authorization flow, and saves token in token.json
 $ go run ./cmd/device-auth/main.go refresh  # uses refresh token API, to update the token.json
