@@ -41,6 +41,7 @@ func main() {
 	clientID := os.Getenv("AUTH0_CLIENT_ID")
 	domain := os.Getenv("AUTH0_DOMAIN")
 	redirectURL := os.Getenv("AUTH0_REDIRECT_URL")
+	orgID := os.Getenv("AUTH0_USER_ORG_ID")
 
 	// Create an OIDC provider
 	provider, err := oidc.NewProvider(context.Background(), "https://"+domain+"/")
@@ -99,7 +100,11 @@ func main() {
 	}
 
 	// Create the authorization URL with PKCE parameters
-	authURL := oauth2Config.AuthCodeURL(state, oauth2.SetAuthURLParam("code_challenge", codeChallenge), oauth2.SetAuthURLParam("code_challenge_method", "S256"))
+	authURL := oauth2Config.AuthCodeURL(state,
+		oauth2.SetAuthURLParam("code_challenge", codeChallenge),
+		oauth2.SetAuthURLParam("code_challenge_method", "S256"),
+		oauth2.SetAuthURLParam("organization", orgID),
+	)
 
 	// Print the authorization URL for the user to visit
 	fmt.Println("Please visit the following URL to authenticate:")
@@ -170,6 +175,7 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("ID Token:", idToken)
 	fmt.Println("Access Token:", accessToken)
 	fmt.Println("Refresh Token:", refreshToken)
+	// os.Exit(0)
 }
 
 func generateRandomString(length int) (string, error) {
